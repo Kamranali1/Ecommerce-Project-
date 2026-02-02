@@ -1,7 +1,7 @@
 import React from 'react'
-import Title from '../components/Title'
+import Title from '../components/Title.jsx'
 import { assets } from '../assets/assets/frontend_assets/assets'
-import NewsLetter from '../components/NewsLetter'
+import NewsLetter from '../components/NewsLetter.jsx'
 const Contact = () => {
   return (
     <div>

@@ -1,9 +1,9 @@
 import React from 'react'
-import Hero from '../components/Hero'
-import LatestProduct from '../components/LatestProduct'
-import BestSeller from '../components/BestSeller'
-import Ourpolicy from '../components/Ourpolicy'
-import NewsLetter from '../components/NewsLetter'
+import Hero from '../components/Hero.jsx'
+import LatestProduct from '../components/LatestProduct.jsx'
+import BestSeller from '../components/BestSeller.jsx'
+import Ourpolicy from '../components/Ourpolicy.jsx'
+import NewsLetter from '../components/NewsLetter.jsx'
 
 const Home = () => {
   return (<>    

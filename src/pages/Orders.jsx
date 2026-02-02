@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
-import Title from '../components/Title'
-import ShopContext from '../context/ShopContext'
+import Title from '../components/Title.jsx'
+import ShopContext from '../context/ShopContext.jsx'
     
 
 

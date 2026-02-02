@@ -1,7 +1,7 @@
 import React from 'react'
-import Title from '../components/Title'
+import Title from '../components/Title.jsx'
 import {assets} from '../assets/assets/frontend_assets/assets'
-import Newsletter from '../components/NewsLetter'
+import Newsletter from '../components/NewsLetter.jsx'
 const About = () => {
   return (
     <div>
