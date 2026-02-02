@@ -1,0 +1,37 @@
+import React from 'react'
+import { Routes,Route } from 'react-router-dom'
+import Home from './pages/Home'
+import Contact from './pages/Contact.jsx'
+import About from './pages/About'
+import Collection from './pages/Collection'
+import Login from './pages/Login'
+import Orders from './pages/Orders'
+import Placeorder from './pages/Placeorder.jsx'
+import Product from './pages/Product'
+import Cart from './pages/Cart'
+import Navbar from './components/Navbar.jsx'
+import Footer from './components/Footer.jsx'
+import Searchbar from './components/Searchbar.jsx'
+const App = () => {
+  return (
+    <div className='px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]'>
+       <Navbar />
+        <Searchbar  />
+       <Routes>
+        <Route path='/' element={<Home/>} ></Route>
+        <Route path='/contact' element={<Contact/>}> </Route>
+        <Route path='/about' element={<About/>}> </Route>
+        <Route path='/collection' element={<Collection/>}> </Route>
+        <Route path='/login' element={<Login/>}> </Route>
+        <Route path='/orders' element={<Orders/>}> </Route>
+        <Route path='/placeorders' element={<Placeorder />}> </Route>
+        <Route path='/product/:productId' element={<Product/>}> </Route>
+        <Route path='/cart' element={<Cart/>}> </Route>
+      </Routes>
+         
+       <Footer />   
+      </div>
+  )
+}
+
+export default App
