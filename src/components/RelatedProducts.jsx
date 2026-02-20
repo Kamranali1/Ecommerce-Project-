@@ -6,21 +6,16 @@ import Product from '../pages/Product.jsx'
 import Products from './Products.jsx'
  
 const RelatedProducts = ({category,type}) => {
-   const {products} = useContext(ShopContext)
+   const {products,productlist} = useContext(ShopContext)
    const [related, setRelated] = useState([])
    useEffect(()=>{
     if(category.length>0){
-        let fpcopy = products.slice() 
+        let fpcopy = productlist.slice() 
          fpcopy = fpcopy.filter((item)=> category === item.category) 
          fpcopy = fpcopy.filter((item)=> type === item.subCategory) 
-         
          setRelated(fpcopy.slice(0,5))
      }
-   },[products])
-  
-
-
-    
+   },[productlist])
     return (
     <div className='my-24' >
      <div className='text-center text-3xl py-2 '>

@@ -4,7 +4,7 @@ import { assets } from '../assets/assets/frontend_assets/assets'
 import Title from '../components/Title.jsx'
 import Products from '../components/Products.jsx'
 const Collection = () => {
-  const { products ,search,showSearch} = useContext(ShopContext)
+  const { products ,search,showSearch,productlist } = useContext(ShopContext)
   const [showFilter, setShowfilter] = useState(false)
   const [filter, setfilter] = useState([])
    const [sortType ,setSortType] = useState('relevent')
@@ -29,7 +29,7 @@ const Collection = () => {
   }
 
   const applyFilter = () => {
-    let productCopy = products.slice()
+    let productCopy = productlist.slice()
       
     if(showSearch && search){
       productCopy = productCopy.filter(item=>item.name.toLowerCase().includes(search.toLowerCase()))

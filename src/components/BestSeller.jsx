@@ -4,12 +4,12 @@ import Title from './Title.jsx'
 import Products from './Products.jsx'
 
 const BestSeller = () => {
-    const { products } = useContext(ShopContext)
+    const { productlist } = useContext(ShopContext)
     const [bestProduct, setBestproduct] = useState([])
     useEffect(() => {
-        const product = products.filter((item) => item.bestseller)
+        const product = productlist.filter((item) => item.bestseller)
         setBestproduct(product.slice(0,5))
-    }, [])
+    }, [productlist])
     return (
         <div className='my-10'>
             <div className='text-center py-5 '>

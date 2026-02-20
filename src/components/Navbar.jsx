@@ -5,11 +5,19 @@ import ShopContext from '../context/ShopContext.jsx'
 
 const Navbar = () => {
   const [open, setOpen] = useState(false)
+  const { token, setToken, navigate } = useContext(ShopContext)
   const toggle = () => {
     setOpen(!open)
   }
 
-  const {showSearch ,setShowSearch,getCartCount } = useContext(ShopContext)
+  const { setCartItems, showSearch, setShowSearch, getCartCount } = useContext(ShopContext)
+
+  const logout = () => {
+     navigate('/login')
+     localStorage.removeItem("token")
+      setToken('')
+      setCartItems({})
+    }
 
   return (
     <>
@@ -27,26 +35,30 @@ const Navbar = () => {
             <hr className='hidden w-2/4 border-none h-[1.5px] bg-gray-700' />
           </NavLink>
           <NavLink to='/about' className='flex flex-col  items-center '>
-            <p>About</p>
+            <p>ABOUT</p>
             <hr className='hidden w-2/4 border-none h-[1.5px] bg-gray-700' />
           </NavLink>
           <NavLink to='/contact' className='flex flex-col  items-center '>
-            <p>Contact</p>
+            <p>CONTACT</p>
             <hr className='hidden w-2/4 border-none h-[1.5px] bg-gray-700' />
           </NavLink>
         </ul>
 
         <div className='flex items-center gap-6'>
-          <img onClick={()=>{setShowSearch(true)}} src={assets.search_icon} className='w-5 cursor-pointer' alt="" />
+          <img onClick={() => { setShowSearch(true) }} src={assets.search_icon} className='w-5 cursor-pointer' alt="" />
           <div className='group relative'>
-              <Link to='/login' > <img src={assets.profile_icon} className='w-5 cursor-pointer' alt="" /></Link>  
-            <div className='group-hover:block hidden absolute dropdown-menu right-0 pt-4 '>
+            <img onClick={ ()=>token ? null : navigate('/login')} src={assets.profile_icon} className='w-5 cursor-pointer' alt="" />
+            {
+              token &&
+              
+              <div className='group-hover:block hidden absolute dropdown-menu right-0 pt-4 '>
               <div className='flex flex-col gap-2 py-3 px-5 w-36 bg-slate-100 text-gray-500 rounded'  >
                 <p className='cursor-pointer hover:text-black'>My Profile </p>
-                <p className='cursor-pointer hover:text-black'>Orders</p>
-                <p className='cursor-pointer hover:text-black'>Logout</p>
+                <p onClick={() => navigate('/orders')} className='cursor-pointer hover:text-black'>Orders</p>
+                <p onClick={() => logout()} className='cursor-pointer hover:text-black'>Logout</p>
               </div>
             </div>
+            }
           </div>
           <Link to='/cart' className='relative'>
             <img src={assets.cart_icon} className='w-5 min-w-5' alt="" />
@@ -60,7 +72,7 @@ const Navbar = () => {
                 <img src={assets.dropdown_icon} className='rotate-180 h-4 ' alt="" />
                 <p>Back</p>
               </div>
-              <NavLink onClick={() => setOpen(false)}  className='border py-2 pl-6' to='/'>Home</NavLink>
+              <NavLink onClick={() => setOpen(false)} className='border py-2 pl-6' to='/'>Home</NavLink>
               <NavLink onClick={() => setOpen(false)} className='border py-2 pl-6' to='/collection'>Collection</NavLink>
               <NavLink onClick={() => setOpen(false)} className='border py-2 pl-6' to='/contact'>Contact</NavLink>
               <NavLink onClick={() => setOpen(false)} className='border py-2 pl-6' to='/about'>About</NavLink>

@@ -1,7 +1,9 @@
 import { createContext, useEffect, useState } from "react";
 import { products } from "../assets/assets/frontend_assets/assets";
 import { useNavigate } from "react-router-dom";
+import axios from 'axios'
 const ShopContext = createContext();
+const backendUrl = import.meta.env.VITE_BACKEND_URL
 
 export const ShopContextProvider = (props) => {
    const currency = 'Rs'
@@ -9,7 +11,23 @@ export const ShopContextProvider = (props) => {
    const [search, setSearch] = useState('')
    const [showSearch, setShowSearch] = useState(false)
    const [cartItems, setCartItems] = useState({})
-  const navigate = useNavigate()
+   const [productlist, setProductlist] = useState([])
+   const [token, setToken] = useState(localStorage.getItem('token')?localStorage.getItem('token'):'')
+   const getProduct = async () => {
+      try {
+         const response = await axios.get('http://localhost:4000/api/product/list')
+         if (response.data.success) {
+            setProductlist(response.data.product)
+         } else {
+            console.log(response.data.msg)
+         }
+      } catch (error) {
+         console.log(error)
+      }
+
+   }
+
+   const navigate = useNavigate()
    const addToCart = async (itemId, size) => {
       let cartData = structuredClone(cartItems)
       if (cartData[itemId]) {
@@ -24,18 +42,22 @@ export const ShopContextProvider = (props) => {
       }
 
       setCartItems(cartData)
+  if(token){
+     const result = await axios.post(backendUrl + '/api/cart/add', { itemId, size }, { headers: { token } })
+  }
    }
 
    const updateQuantity = async (itemId, size, quantity) => {
       let cartData = structuredClone(cartItems)
       cartData[itemId][size] = quantity
       setCartItems(cartData)
-   }
+      const result = await axios.post(backendUrl + '/api/cart/update', { itemId, size, quantity }, { headers: { token } })
+     }
 
    const getCartAmount = () => {
       let totalAmount = 0
       for (const items in cartItems) {
-         const productData = products.find((item) => item._id === items);
+         const productData = productlist.find((item) => item._id === items);
          for (const item in cartItems[items]) {
             try {
                if (cartItems[items][item] > 0) {
@@ -46,7 +68,7 @@ export const ShopContextProvider = (props) => {
             }
          }
       }
-       return totalAmount
+      return totalAmount
    }
 
    const getCartCount = () => {
@@ -60,22 +82,43 @@ export const ShopContextProvider = (props) => {
             } catch (error) {
 
             }
-         }
-
+        }
       }
       return totalCount;
    }
 
+   const getCartItem = async () => {
+      try {
+         let response = await axios.post(backendUrl +'/api/cart/get',{},{headers:{token}})
+                    if (response.data.success) {
+            setCartItems(response.data.cartData)
+         } else {
+            console.log(response.data.msg)
+         }
+      } catch (error) {
+         console.log(error)
+      }
+
+   }
+
+
    useEffect(() => {
-      console.log(cartItems)
-   })
+      getProduct()
+   }, [])
+
+   useEffect(() => {
+   if(token){
+      getCartItem()
+   }
+   },[token])
 
 
    const value = {
-      products, currency, deliveryfee,
-      search, setSearch, showSearch, setShowSearch, cartItems, addToCart,
-      getCartCount, updateQuantity,getCartAmount,navigate
+      products, currency, deliveryfee, backendUrl,
+      search, setSearch, productlist, showSearch, setShowSearch, cartItems, addToCart,
+      getCartCount, updateQuantity, getCartAmount, navigate, setToken, token, setCartItems
    }
+
 
 
    return (

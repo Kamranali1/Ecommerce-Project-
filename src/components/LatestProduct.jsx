@@ -4,11 +4,11 @@ import ShopContext from '../context/ShopContext.jsx'
 import Products from './Products.jsx'
 
 const LatestProduct = () => {
-    const { products } = useContext(ShopContext)
+    const { products,productlist } = useContext(ShopContext)
     const [product, setProduct] = useState([]);
     useEffect(() => {
-        setProduct(products.slice(0, 10))
-    }, []
+        setProduct(productlist.slice(0, 10))
+    },[productlist]
     )
 
     return (

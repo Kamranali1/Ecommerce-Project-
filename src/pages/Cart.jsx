@@ -4,22 +4,24 @@ import Title from '../components/Title.jsx'
 import { assets } from '../assets/assets/frontend_assets/assets'
 import CartTotal from '../components/CartTotal.jsx'
 const Cart = () => {
-   const { navigate,cartItems,products ,currency} = useContext(ShopContext)
+   const { navigate,cartItems,products ,currency,productlist} = useContext(ShopContext)
    const {updateQuantity} = useContext(ShopContext)
    const [cartData,setCartData] = useState([]) 
     useEffect(()=>{
       let temp =[]  
-      for(const items in cartItems){
-        for(const item in cartItems[items]){
-          if(cartItems[items][item]>0){
-            temp.push({
-              id:items,
-              size : item,
-              quantity: cartItems[items][item]
-            })
+      if(productlist.length>0){
+        for(const items in cartItems){
+          for(const item in cartItems[items]){
+            if(cartItems[items][item]>0){
+              temp.push({
+                id:items,
+                size : item,
+                quantity: cartItems[items][item]
+              })
+            }
           }
         }
-      }
+        }
     setCartData(temp)
     },[cartItems])
   
@@ -31,7 +33,7 @@ const Cart = () => {
     
        <div>
           {cartData.map((item,index)=>{
-            const productData = products.find((product)=>product._id === item.id)
+            const productData = productlist.find((product)=>product._id === item.id)
             return (
               <div className='py-4 border-t border-b text-gray-700  grid grid-cols-[4fr_0.5fr_0.5fr] sm:grid-cols-[4fr_2fr_0.5fr] items-center gap-4' key={index}>
                   <div className='flex items-start gap-6'>
