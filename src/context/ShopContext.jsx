@@ -1,12 +1,12 @@
 import { createContext, useEffect, useState } from "react";
 import { products } from "../assets/assets/frontend_assets/assets";
 import { useNavigate } from "react-router-dom";
-import axios from 'axios'
+import axios from 'axios';
 const ShopContext = createContext();
-const backendUrl = import.meta.env.VITE_BACKEND_URL
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 export const ShopContextProvider = (props) => {
-git    const currency = 'Rs'
+   const currency = 'Rs'
    const deliveryfee = 100
    const [search, setSearch] = useState('')
    const [showSearch, setShowSearch] = useState(false)
