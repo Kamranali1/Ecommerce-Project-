@@ -3,7 +3,7 @@ import { products } from "../assets/assets/frontend_assets/assets";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios'
 const ShopContext = createContext();
-const backendUrl = 'https://ecommercebackend-lovat.vercel.app'
+const backendUrl = import.meta.env.VITE_BACKEND_URL
 
 export const ShopContextProvider = (props) => {
    const currency = 'Rs'
@@ -15,7 +15,7 @@ export const ShopContextProvider = (props) => {
    const [token, setToken] = useState(localStorage.getItem('token')?localStorage.getItem('token'):'')
    const getProduct = async () => {
       try {
-         const response = await axios.get('http://localhost:4000/api/product/list')
+         const response = await axios.get(backendUrl+'/api/product/list')
          if (response.data.success) {
             setProductlist(response.data.product)
          } else {
