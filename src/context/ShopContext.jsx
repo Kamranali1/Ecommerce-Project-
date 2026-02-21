@@ -3,7 +3,7 @@ import { products } from "../assets/assets/frontend_assets/assets";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios'
 const ShopContext = createContext();
-const backendUrl = import.meta.env.VITE_BACKEND_URL
+const backendUrl = 'https://ecommercebackend-lovat.vercel.app'
 
 export const ShopContextProvider = (props) => {
    const currency = 'Rs'
